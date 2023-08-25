@@ -5,6 +5,19 @@ const port = process.env.PORT || 3000;
 app.listen(port, function () {
     console.log("Server is running...");
 });
+//config session
+const session = require("express-session");
+app.use(
+    session({
+        resave: true,
+        saveUninitialized:true,
+        secret:"t2207a1122233",
+        cookie:{
+            maxAge:3600000, //miniseconds
+            secure:false
+        }
+    })
+);
 
 require("./src/db/database");
 app.set("view engine", "ejs");
@@ -16,7 +29,7 @@ const webrouter = require("./src/routes/web.routes");
 app.use("/", webrouter);
 
 const userrouter = require("./src/routes/user.routes");
-app.use("/", userrouter);
+app.use("/auth", userrouter);
 
 const productrouter = require("./src/routes/product.routes");
 app.use("/product", productrouter);

@@ -1,7 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const controller = require("../controllers/product.controller");
-
+// ai cung vao duoc trang danh sach -xem 
+const middleware = require("./../middlewares/role.middleware");
+router.use("/create",middleware.role_admin);
 // Upload file
 const multer = require("multer");
 const storage = multer.diskStorage({
